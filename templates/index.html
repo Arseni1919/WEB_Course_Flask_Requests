@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/example.css') }}">
+</head>
+<body>
+{% block header %}
+        {% set page_name = 'Homepage' %}
+
+{% endblock %}
+
+
+    {% block Main %}
+        {% from 'header.html' import header_message %}
+        <h4>{{ header_message }}</h4>
+
+{#    <h1>Welcome to our website, {{ name | default('Stranger', true) | upper }}!</h1>#}
+    {% if session['username'] %}
+        <h1>Hello {{ session['username'] }}! </h1>
+    {% else %}
+        <h1>Hello, Stranger!</h1>
+    {% endif %}
+
+
+
+    <h2>My hobbies</h2>
+    <ol>
+        {% for hobby in hobbies %}
+            <li>{{ hobby }}</li>
+        {% endfor %}
+    </ol>
+
+        {% if session['username'] %}
+    <h2>My portfolio Details</h2>
+    <ul>
+        {% for det, val in session.items() %}
+            <li>{{ det }}: {{ val }}</li>
+        {% endfor %}
+    </ul>
+        {% endif %}
+
+    {% endblock %}
+
+{#    <h2>Degrees: {{ degree[0] }}, {{ degree[1] }}</h2>#}
+</body>
+</html>
